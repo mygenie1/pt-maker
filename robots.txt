@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://여기에-내-도메인.com/sitemap.xml
+Sitemap: https://mygenie1.github.io/pt-maker/sitemap.xml
