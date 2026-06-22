@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+// 언어 자동 감지: 영어 브라우저면 영어판으로 한 번 안내 (사용자가 직접 한국어를 고른 적 있으면 안 보냄)
+(function(){
+  try{
+    var pref = localStorage.getItem('myjini_lang'); // 'ko'면 사용자가 한국어를 직접 선택함
+    if(pref==='ko') return;
+    if(sessionStorage.getItem('myjini_redirected')) return; // 이번 방문에 이미 한 번 보냈으면 패스
+    var lang = (navigator.language||navigator.userLanguage||'').toLowerCase();
+    if(lang.indexOf('ko')!==0){ // 한국어가 아니면(영어 등)
+      sessionStorage.setItem('myjini_redirected','1');
+      location.replace('en/index.html');
+    }
+  }catch(e){}
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>마이지니 프롬프트 생성기 — AI 프롬프트를 고르고 복사하면 끝</title>
@@ -8,6 +23,9 @@
 <meta name="keywords" content="AI 프롬프트, 프롬프트 생성기, 챗GPT 프롬프트, 프롬프트 만들기, AI 명령어, 프롬프트 추천, 마이지니">
 <meta name="author" content="마이지니">
 <link rel="canonical" href="https://mygenie1.github.io/pt-maker/">
+<link rel="alternate" hreflang="ko" href="https://mygenie1.github.io/pt-maker/">
+<link rel="alternate" hreflang="en" href="https://mygenie1.github.io/pt-maker/en/">
+<link rel="alternate" hreflang="x-default" href="https://mygenie1.github.io/pt-maker/">
 <!-- 카톡·SNS 공유용 -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="마이지니 프롬프트 생성기">
@@ -62,8 +80,10 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;min-height:100vh}
+  body{position:relative;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;min-height:100vh}
   .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  .lang-switch{position:absolute;top:16px;right:20px;z-index:40;display:inline-flex;align-items:center;gap:5px;background:var(--surface);color:var(--text-sub);text-decoration:none;font-size:.82rem;font-weight:700;padding:8px 14px;border-radius:999px;box-shadow:var(--shadow);transition:all .15s}
+  .lang-switch:hover{color:var(--blue);transform:translateY(-1px)}
   header{padding:48px 0 22px;text-align:center}
   .badge{display:inline-block;background:var(--blue-soft);color:var(--blue);font-size:.78rem;font-weight:700;padding:7px 14px;border-radius:999px;margin-bottom:18px}
   h1{font-size:clamp(1.8rem,6vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.2}
@@ -196,6 +216,7 @@
 </head>
 <body>
 <div class="wrap">
+<a href="en/index.html" class="lang-switch" aria-label="View in English" onclick="try{localStorage.setItem('myjini_lang','en')}catch(e){}">🌐 English</a>
 <header>
   <div class="badge">무료 · 가입 없이 바로 사용</div>
   <h1>마이지니 <span class="g">프롬프트</span> 생성기</h1>
