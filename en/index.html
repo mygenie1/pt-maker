@@ -1097,7 +1097,7 @@ function composeExpPrompt(){
     rules.forEach(r=>t+='- '+r+'.\n');
   }
 
-  t+='\n---\nWhen you are ready, reply "Sure, what can I help you with?" and I will share my request next.';
+  t+='\n---\nWhen you are ready, start by briefly introducing yourself in the role above (who you are and how you can help) in one or two sentences. Then I will share my specific request.';
   return t.trim();
 }
 
